@@ -1,0 +1,27 @@
+var express = require('express');
+var router = express.Router();
+// could use one line instead: var router = require('express').Router();
+var tweetBank = require('../tweetBank.js');
+
+router.get('/', function (req, res, next) {
+  var tweets = tweetBank.list();
+  console.log(tweets);
+  res.render( 'index', { title: 'Twitter.js', tweets: tweets } );
+});
+
+// say that a client GET requests the path /users/nimit
+router.get( '/users/:name', function (req, res) {
+  var name = req.params.name; // --> 'nimit'
+  var tweeter = {} ;
+  var tweetList = tweetBank.list();
+  for (var i = 0; i < tweetList.length; i++){
+  	if(tweetList[i].name.split(' ')[0].toLowerCase() === name.toLowerCase()) {
+  		tweeter = tweetList[i];
+  	}
+  }
+  var list = tweetBank.find( {name: tweeter.name} );
+  res.render( 'index', {title: 'Twitter.js - Posts by ' + name, tweets: list});
+});
+
+
+module.exports = router;
