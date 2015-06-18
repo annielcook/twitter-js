@@ -87,9 +87,9 @@
 
       // When 'new_tweet' events are fired, do something with the packaged tweet
       socket.on('new_tweet', function (tweet) { 
-        console.log(tweet);
-        //alert('Refreshing... check the console...');
-          console.log(tweet.message);
+        //console.log(tweet);
+        alert(tweet.name + ' just posted a message of ' + tweet.text);
+          //console.log(tweet.message);
       }); 
     </script>
   </body>
